@@ -38,19 +38,19 @@
     </v-app-bar>
 
     <v-content>
-      <HelloWorld/>
+      <WesternUnion/>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld';
+import WesternUnion from './components/WesternUnion';
 
 export default {
   name: 'App',
 
   components: {
-    HelloWorld,
+    WesternUnion,
   },
 
   data: () => ({
