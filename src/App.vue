@@ -5,27 +5,18 @@
       color="primary"
       dark
     >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
 
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
+      <div>
+        <v-carousel-transition
+        >
+          <font-awesome-icon
+            key="icon"
+            :icon="icon"
+          />
+        </v-carousel-transition>
       </div>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
@@ -38,23 +29,51 @@
     </v-app-bar>
 
     <v-content>
-      <WesternUnion/>
+      <v-container>
+        <v-row>
+          <v-col>
+            <WesternUnion />
+          </v-col>
+          <v-col />
+        </v-row>
+      </v-container>
     </v-content>
   </v-app>
 </template>
 
 <script>
-import WesternUnion from './components/WesternUnion';
+import WesternUnion from './components/WesternUnion'
 
 export default {
   name: 'App',
 
   components: {
-    WesternUnion,
+    WesternUnion
   },
 
   data: () => ({
-    //
+    icon: 'pound-sign',
+    iconSet: [
+      'euro-sign',
+      'dollar-sign',
+      'rupee-sign',
+      'hand-holding-usd'
+    ]
   }),
-};
+
+  mounted () {
+    setInterval(() => {
+      this.pollIcons()
+    }, 5000)
+  },
+
+  methods: {
+    pollIcons () {
+      console.log(Math.floor(Math.random() * this.iconSet.length))
+      console.log(this.iconSet[Math.floor(Math.random() * this.iconSet.length)])
+      this.icon = this.iconSet[Math.floor(Math.random() * this.iconSet.length)]
+      // this.icon = this.iconSet[Math.floor(Math.random() * this.iconSet.length)]
+    }
+  }
+}
 </script>
