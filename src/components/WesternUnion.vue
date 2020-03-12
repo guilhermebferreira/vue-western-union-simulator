@@ -13,13 +13,21 @@
                 type="Number"
                 hint="Digite o valor final que deseja utilizar na transferencia, incluindo impostos e taxas"
                 label="Valor total da transferência"
-                outlined
+                prefix="R$ "
               />
 
             </v-col>
           </v-expand-transition>
             <v-col v-if="valorTotal>0">
-              R$  {{ valorInicial | mxFiltroFormatarMoney  }}
+
+              <v-text-field
+                      :value="valorInicial"
+                      type="Number"
+                      label="Valor total da transferência"
+                      outlined
+                      readonly
+                      prefix="R$ "
+              />
             </v-col>
         </v-row>
         <v-row v-if="valorTotal<=taxaWU">
@@ -83,6 +91,11 @@ export default {
   data: () => ({
     valorTotal: 2399.79,
     IOF: 0.38,
+    valorPiso: 330,
+    valorTeto: 2500,
+    taxaPiso: 9.9,
+    taxa: 3,
+    taxaTeto: 75,
     menssagemValorMinimo: 'O valor total precisa ser maior que a taxa mínima de transferência',
     money: {
       decimal: ',',
@@ -104,22 +117,28 @@ export default {
 
   computed: {
     valorInicial () {
-      const valor = (this.valorTotal - this.taxaWU) / (1 + (this.IOF / 100))
-      return valor
+      const valor = this.valorTotal / (1 + (this.taxa / 100) + (this.IOF / 100))
+
+      if (valor > this.valorTeto) {
+        return (this.valorTotal - this.taxaTeto) / (1 + (this.IOF / 100))
+      }
+
+      if (valor < this.valorPiso) {
+        return (this.valorTotal - this.taxaPiso) / (1 + (this.IOF / 100))
+      }
+
+      return valor.toFixed(2)
     },
     iofAplicado () {
-      // const valorSemTaxa = (this.valorTotal - this.taxaWU)
       const valor = (this.valorInicial * this.IOF) / 100
       return valor
     },
     taxaWU () {
-      // https://br.mobiletransaction.org/western-union/
-      if (this.valorTotal > (2500 + 75)) {
+      if (this.valorInicial > this.valorTeto) {
         return 75
       }
-      if (this.valorTotal > (330 + 9.9)) {
-        return 69.64
-        // return (this.porcentagemReversa(this.valorTotal, 0.03) * 0.03)
+      if (this.valorInicial > this.valorPiso) {
+        return (this.valorInicial * 0.03)
       }
       return 9.9
     }
