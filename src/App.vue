@@ -69,10 +69,7 @@ export default {
 
   methods: {
     pollIcons () {
-      console.log(Math.floor(Math.random() * this.iconSet.length))
-      console.log(this.iconSet[Math.floor(Math.random() * this.iconSet.length)])
       this.icon = this.iconSet[Math.floor(Math.random() * this.iconSet.length)]
-      // this.icon = this.iconSet[Math.floor(Math.random() * this.iconSet.length)]
     }
   }
 }
