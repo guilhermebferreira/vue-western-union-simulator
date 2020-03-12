@@ -19,7 +19,7 @@
       <v-spacer />
 
       <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
+        href="https://github.com/guilhermebferreira/vue-western-union-simulator"
         target="_blank"
         text
       >
