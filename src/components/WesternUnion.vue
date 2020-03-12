@@ -23,7 +23,7 @@
               <v-text-field
                       :value="valorInicial"
                       type="Number"
-                      label="Valor total da transferência"
+                      label="Valor inicial a preencher"
                       outlined
                       readonly
                       prefix="R$ "
