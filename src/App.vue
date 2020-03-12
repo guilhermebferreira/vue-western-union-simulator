@@ -32,7 +32,7 @@
       <v-container>
         <v-row>
           <v-col>
-            <WesternUnion />
+            <WesternUnion :taxa=68.6478 />
           </v-col>
           <v-col />
         </v-row>
